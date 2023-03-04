@@ -51,7 +51,7 @@ class TagIt:
     plot()
         show the image with index of `count`
     """
-    def __init__(self, Images_dir, BackUp_dir, classes_input, count=None, figsize=(7,7)):
+    def __init__(self, Images_dir, BackUp_dir, classes_input, count=None, figsize=(7,7),backup_num=100):
 
         # Attributes
         self.Images_dir = Images_dir                           # images directory 
@@ -60,10 +60,11 @@ class TagIt:
         self.classes    = classes_input.values()               # list of classes
         self.key_button = classes_input.keys()                 # list of defined keys
         self.csv_path   = f"{Images_dir}/img_label.csv"        # path of label csv file 
-        self.csv_backup_path = f"{BackUp_dir}/img_backup.csv" # path of label backup csv file
+        self.csv_backup_path = f"{BackUp_dir}/img_backup.csv"  # path of label backup csv file
         self.count      = count                                # index of image
         self.figsize    = figsize
-        self.font_size  = figsize[0]*(1.4) 
+        self.font_size  = figsize[0]*(1.4)
+        self.backup_num = backup_num
         # If there were no CSV files, it create one otherwise continue to fill it
         if os.path.isfile(self.csv_path) is False:
             self.img_path = glob.glob(f"{Images_dir}/*.png")   # list of images in `Images_dir`
@@ -121,7 +122,7 @@ class TagIt:
         elif self.key in ["enter", "right"]:
             plt.clf() # clear the canvas 
             # The label data frame is saved if 100 images were labeled or images were finished
-            if self.count % 100 == 0 or self.count==len(self.img_path)-1:
+            if self.count % self.backup_num == 0 or self.count==len(self.img_path)-1:
                 plt.text(0, -0.045*self.img_height,
                          f"Image label is backed up.",color='g',size=self.font_size) # inform the user that labels is backed up
                 self.img_info.to_csv(self.csv_path,index=False) # save label dataframe in csv file 
