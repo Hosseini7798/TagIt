@@ -36,6 +36,14 @@ tagger = TagIt(Images_dir, BackUp_dir, classes_input)
 ```
 This will create an instance of the TagIt class, which will display the first image in the Images_dir folder. You can then use the 1, 2, and 3 keys to label the image with the corresponding classes, and the label information will be saved in a CSV file in the Images_dir folder.
 
+The following keyboard shortcuts are pre-defined and should not be assigned by the user:
+1. `Enter`: Move to next image
+2. `Right`: Move to next image
+3. `Shift`: Move to previous image
+4. `Left`: Move to previous image
+5. `Backspace`: Delete assigned labels
+6. `S`: Save the labels in CSV file
+
 ## Contributing
 If you encounter any issues or have suggestions for new features, feel free to open an issue or submit a pull request on the GitHub repository. All contributions are welcome!
 
